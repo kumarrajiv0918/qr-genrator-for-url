@@ -22,19 +22,52 @@
     }
 
     header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
       background-color: #343a40;
       color: white;
+    }
+
+    .header-left,
+    .header-center,
+    .header-right {
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .header-center {
       text-align: center;
-      padding: 1rem;
+    }
+
+    .header-right {
+      text-align: right;
+    }
+
+    header h2,
+    header p {
+      margin: 0;
+      font-size: 14px;
     }
 
     header h2 {
-      margin: 0 0 5px;
+      font-size: 18px;
     }
 
-    header p {
-      margin: 2px 0;
-      font-size: 12px;
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+      }
+
+      .header-left,
+      .header-center,
+      .header-right {
+        text-align: center;
+      }
     }
 
     main {
@@ -154,12 +187,18 @@
 
 <body>
 
-  <header>
-    <h2>QR Code Generator</h2>
-    <p><strong>Web Development Services</strong></p>
-    <p>📞 +91-08651193833 | ✉️ kumarrajiv0918@gmail.com</p>
+  <header
+    style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 10px 20px 10px 10px; background-color: #343a40; color: white; margin-right: 20;">
+    <div style="flex: 1; min-width: 100px;">
+      <h2 style="margin: 0; font-size: 18px;">QR Code Generator</h2>
+    </div>
+    <div style="flex: 1; text-align: center; min-width: 100px;">
+      <p style="margin: 0; font-weight: bold;">Web Development Services</p>
+    </div>
+    <div style="flex: 1; text-align: right; min-width: 100px;">
+      <p style="margin: 0;">📞 +91-08651193833 | ✉️ kumarrajiv0918@gmail.com</p>
+    </div>
   </header>
-
   <main>
     <div class="form-section">
       <div>
@@ -177,6 +216,30 @@
           <option value="bottom">Bottom</option>
           <option value="left">Left</option>
           <option value="right">Right</option>
+        </select>
+
+        <label for="colorSelect">QR Code Color</label>
+        <select id="colorSelect">
+          <option value="#000000">Black</option>
+          <option value="#1abc9c">Turquoise</option>
+          <option value="#3498db">Blue</option>
+          <option value="#9b59b6">Purple</option>
+          <option value="#e74c3c">Red</option>
+          <option value="#e67e22">Orange</option>
+          <option value="#f1c40f">Yellow</option>
+          <option value="#2ecc71">Green</option>
+          <option value="#34495e">Dark Blue</option>
+          <option value="#16a085">Teal</option>
+          <option value="#27ae60">Emerald</option>
+          <option value="#2980b9">Strong Blue</option>
+          <option value="#8e44ad">Dark Purple</option>
+          <option value="#c0392b">Dark Red</option>
+          <option value="#d35400">Pumpkin</option>
+          <option value="#f39c12">Sunflower</option>
+          <option value="#1c1c1c">Dark Gray</option>
+          <option value="#7f8c8d">Gray</option>
+          <option value="#bdc3c7">Light Gray</option>
+          <option value="#ecf0f1">Silver</option>
         </select>
 
         <label for="logoInput">Upload Logo (optional)</label>
@@ -204,11 +267,15 @@
       const url = document.getElementById("urlInput").value.trim();
       const text = document.getElementById("textInput").value.trim();
       const position = document.getElementById("positionSelect").value;
+      const color = document.getElementById("colorSelect").value;
       const file = document.getElementById("logoInput").files[0];
       const downloadBtn = document.getElementById("downloadBtn");
 
-      if (!url) {
-        alert("Please enter a URL.");
+      let validUrl;
+      try {
+        validUrl = new URL(url);
+      } catch (_) {
+        alert("Please enter a valid URL.");
         return;
       }
 
@@ -224,11 +291,11 @@
       qrCanvas.width = 300;
       qrCanvas.height = 300;
 
-      await QRCode.toCanvas(qrCanvas, url, {
+      await QRCode.toCanvas(qrCanvas, validUrl.href, {
         width: 300,
         margin: 1,
         color: {
-          dark: "#000000",
+          dark: color,
           light: "#ffffff"
         }
       });
