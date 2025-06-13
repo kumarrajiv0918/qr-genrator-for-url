@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Responsive QR Code Generator</title>
+  <title>Advanced QR Code Generator</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     * {
       box-sizing: border-box;
@@ -31,6 +32,13 @@
       color: white;
     }
 
+    header h2,
+    header p {
+      margin: 0;
+      color: #fff;
+      text-shadow: 1px 1px 2px black;
+    }
+
     .header-left,
     .header-center,
     .header-right {
@@ -46,21 +54,21 @@
       text-align: right;
     }
 
-    header h2,
-    header p {
-      margin: 0;
-      font-size: 14px;
+    .header-right a {
+      color: #0a66c2;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    header h2 {
-      font-size: 18px;
+    .header-right i {
+      margin-right: 4px;
     }
 
     @media (max-width: 768px) {
       header {
         flex-direction: column;
-        text-align: center;
         gap: 8px;
+        text-align: center;
       }
 
       .header-left,
@@ -76,7 +84,6 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      align-items: stretch;
       gap: 2rem;
     }
 
@@ -88,16 +95,11 @@
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
       flex: 1 1 320px;
       max-width: 480px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
 
     h2 {
-      font-size: 14px;
-      margin-bottom: 1rem;
-      color: #faf6f6;
       text-align: center;
+      margin-bottom: 1rem;
     }
 
     label {
@@ -119,7 +121,6 @@
 
     button {
       cursor: pointer;
-      transition: background 0.3s ease;
       border: none;
     }
 
@@ -128,27 +129,23 @@
       color: white;
     }
 
-    .generate-btn:hover {
-      background-color: #0056b3;
-    }
-
     .download-btn {
       background-color: #28a745;
       color: white;
       display: none;
     }
 
-    .download-btn:hover {
-      background-color: #1e7e34;
+    .reset-btn {
+      background-color: #dc3545;
+      color: white;
+      margin-top: 5px;
     }
 
     canvas {
       width: 100%;
       height: auto;
-      max-width: 100%;
       background: white;
       border-radius: 10px;
-      margin-top: 10px;
     }
 
     footer {
@@ -158,156 +155,187 @@
       padding: 1rem;
       font-size: 12px;
     }
-
-    @media (max-width: 768px) {
-      main {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .form-section,
-      .output-section {
-        max-width: 100%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h2 {
-        font-size: 13px;
-      }
-
-      input,
-      select,
-      button {
-        font-size: 11px;
-      }
-    }
   </style>
 </head>
 
 <body>
-
-  <header
-    style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 10px 20px 10px 10px; background-color: #343a40; color: white; margin-right: 20;">
-    <div style="flex: 1; min-width: 100px;">
-      <h2 style="margin: 0; font-size: 18px;">QR Code Generator</h2>
+  <header>
+    <div class="header-left">
+      <h2>QR Code Generator</h2>
     </div>
-    <div style="flex: 1; text-align: center; min-width: 100px;">
-      <p style="margin: 0; font-weight: bold;">Web Development Services</p>
+    <div class="header-center">
+      <p><strong>Web Development Services</strong></p>
     </div>
-    <div style="flex: 1; text-align: right; min-width: 100px;">
-      <p style="margin: 0;">📞 +91-08651193833 | ✉️ kumarrajiv0918@gmail.com</p>
+    <div class="header-right">
+      <p>
+        📞 +91-08651193833 | ✉️ kumarrajiv0918@gmail.com<br>
+        <i class="fab fa-linkedin"></i>
+        <a href="https://www.linkedin.com/in/rajiv-kumar-60b3b7255?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+          target="_blank">
+          LinkedIn Profile
+        </a>
+      </p>
     </div>
   </header>
+
   <main>
     <div class="form-section">
-      <div>
-        <h2>Input Details</h2>
-        <label for="urlInput">URL</label>
-        <input type="text" id="urlInput" placeholder="Enter URL" />
+      <h2>Input Details</h2>
+      <a href="help.html" target="_blank" style="font-size: 12px; color: rgb(3, 0, 0);">Need Help?</a>
 
-        <label for="textInput">Optional Text</label>
-        <input type="text" id="textInput" placeholder="Optional Text" />
+      <label for="typeSelect">Data Type</label>
+      <select id="typeSelect">
+        <option value="url">URL</option>
+        <option value="text">Text</option>
+        <option value="email">Email</option>
+        <option value="phone">Phone</option>
+        <option value="wifi">Wi-Fi</option>
+        <option value="vcard">vCard</option>
+      </select>
 
-        <label for="positionSelect">Text Position</label>
-        <select id="positionSelect">
-          <option value="none">-- Text Position --</option>
-          <option value="top">Top</option>
-          <option value="bottom">Bottom</option>
-          <option value="left">Left</option>
-          <option value="right">Right</option>
-        </select>
+      <label for="urlInput">Input</label>
+      <input type="text" id="urlInput" placeholder="Enter data" />
 
-        <label for="colorSelect">QR Code Color</label>
-        <select id="colorSelect">
-          <option value="#000000">Black</option>
-          <option value="#1abc9c">Turquoise</option>
-          <option value="#3498db">Blue</option>
-          <option value="#9b59b6">Purple</option>
-          <option value="#e74c3c">Red</option>
-          <option value="#e67e22">Orange</option>
-          <option value="#f1c40f">Yellow</option>
-          <option value="#2ecc71">Green</option>
-          <option value="#34495e">Dark Blue</option>
-          <option value="#16a085">Teal</option>
-          <option value="#27ae60">Emerald</option>
-          <option value="#2980b9">Strong Blue</option>
-          <option value="#8e44ad">Dark Purple</option>
-          <option value="#c0392b">Dark Red</option>
-          <option value="#d35400">Pumpkin</option>
-          <option value="#f39c12">Sunflower</option>
-          <option value="#1c1c1c">Dark Gray</option>
-          <option value="#7f8c8d">Gray</option>
-          <option value="#bdc3c7">Light Gray</option>
-          <option value="#ecf0f1">Silver</option>
-        </select>
+      <label for="textInput">Optional Text</label>
+      <input type="text" id="textInput" placeholder="Optional Text" />
 
-        <label for="logoInput">Upload Logo (optional)</label>
-        <input type="file" id="logoInput" accept="image/*" />
-      </div>
+      <label for="positionSelect">Text Position</label>
+      <select id="positionSelect">
+        <option value="none">-- Text Position --</option>
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+        <option value="left">Left</option>
+        <option value="right">Right</option>
+      </select>
+
+      <label for="foregroundColor">QR Foreground Color</label>
+      <input type="color" id="foregroundColor" value="#000000" />
+
+      <label for="backgroundColor">QR Background Color</label>
+      <input type="color" id="backgroundColor" value="#ffffff" />
+
+      <label for="fontSize">Text Font Size (px)</label>
+      <input type="number" id="fontSize" value="12" min="8" max="40" />
+
+      <label for="sizeSelect">QR Code Size</label>
+      <select id="sizeSelect">
+        <option value="300">300x300</option>
+        <option value="400" selected>400x400</option>
+        <option value="500">500x500</option>
+      </select>
+
+      <label for="logoInput">Upload Logo (optional)</label>
+      <input type="file" id="logoInput" accept="image/*" />
+      <img id="logoPreview" style="max-width: 100px; display: none; margin-top: 5px;" />
+
+      <label for="formatSelect">Download Format</label>
+      <select id="formatSelect">
+        <option value="png">PNG</option>
+        <option value="svg">SVG</option>
+      </select>
 
       <button class="generate-btn" onclick="generateQR()">Generate QR</button>
+      <button class="reset-btn" onclick="resetForm()">Reset</button>
     </div>
 
     <div class="output-section">
-      <div>
-        <h2>QR Code Output</h2>
-        <canvas id="qrCanvas" width="400" height="400"></canvas>
-      </div>
-      <button id="downloadBtn" class="download-btn" onclick="downloadQR()">Download PNG</button>
+      <h2>QR Code Output</h2>
+      <canvas id="qrCanvas"></canvas>
+      <button id="downloadBtn" class="download-btn" onclick="downloadQR()">Download</button>
     </div>
   </main>
 
-  <footer>
-    &copy; 2025 QR Code Generator. All Rights Reserved.
-  </footer>
+  <footer>&copy; 2025 QR Code Generator. All Rights Reserved.</footer>
 
   <script>
+    const canvas = document.getElementById("qrCanvas");
+    const ctx = canvas.getContext("2d");
+    const logoInput = document.getElementById("logoInput");
+    const logoPreview = document.getElementById("logoPreview");
+
+    logoInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          logoPreview.src = reader.result;
+          logoPreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
     async function generateQR() {
-      const url = document.getElementById("urlInput").value.trim();
+      const input = document.getElementById("urlInput").value.trim();
       const text = document.getElementById("textInput").value.trim();
       const position = document.getElementById("positionSelect").value;
-      const color = document.getElementById("colorSelect").value;
-      const file = document.getElementById("logoInput").files[0];
-      const downloadBtn = document.getElementById("downloadBtn");
+      const foregroundColor = document.getElementById("foregroundColor").value;
+      const backgroundColor = document.getElementById("backgroundColor").value;
+      const fontSize = parseInt(document.getElementById("fontSize").value);
+      const size = parseInt(document.getElementById("sizeSelect").value);
+      const type = document.getElementById("typeSelect").value;
+      const file = logoInput.files[0];
 
-      let validUrl;
-      try {
-        validUrl = new URL(url);
-      } catch (_) {
-        alert("Please enter a valid URL.");
+      // Validation
+      if (!input) {
+        alert("Please enter the required data.");
         return;
       }
 
-      const canvas = document.getElementById("qrCanvas");
-      const ctx = canvas.getContext("2d");
+      if (type === "email" && !/^\S+@\S+\.\S+$/.test(input)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
 
-      const size = 400;
+      if (type === "phone" && !/^\d{10,15}$/.test(input)) {
+        alert("Please enter a valid phone number.");
+        return;
+      }
+
+      if (type === "url" && !/^https?:\/\/\S+\.\S+/.test(input)) {
+        alert("Please enter a valid URL (including https://).");
+        return;
+      }
+
+      if (type === "wifi" && input.length < 4) {
+        alert("Please enter a valid Wi-Fi password (min 4 characters).");
+        return;
+      }
+
+      canvas.width = canvas.height = size;
       ctx.clearRect(0, 0, size, size);
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = backgroundColor;
       ctx.fillRect(0, 0, size, size);
 
-      const qrCanvas = document.createElement("canvas");
-      qrCanvas.width = 300;
-      qrCanvas.height = 300;
+      let qrData = "";
+      switch (type) {
+        case "url": qrData = input; break;
+        case "text": qrData = text || input; break;
+        case "email": qrData = `mailto:${input}`; break;
+        case "phone": qrData = `tel:${input}`; break;
+        case "wifi": qrData = `WIFI:T:WPA;S:MySSID;P:${input};;`; break;
+        case "vcard": qrData = `BEGIN:VCARD\nVERSION:3.0\nFN:${input}\nTEL:+910000000000\nEMAIL:example@example.com\nEND:VCARD`; break;
+      }
 
-      await QRCode.toCanvas(qrCanvas, validUrl.href, {
-        width: 300,
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = tempCanvas.height = size * 0.75;
+      await QRCode.toCanvas(tempCanvas, qrData, {
+        width: tempCanvas.width,
         margin: 1,
         color: {
-          dark: color,
-          light: "#ffffff"
+          dark: foregroundColor,
+          light: backgroundColor
         }
       });
 
-      ctx.drawImage(qrCanvas, 50, 50);
+      ctx.drawImage(tempCanvas, size * 0.125, size * 0.125);
 
       if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
           const img = new Image();
           img.onload = function () {
-            const imgSize = 60;
+            const imgSize = size * 0.15;
             ctx.drawImage(img, size / 2 - imgSize / 2, size / 2 - imgSize / 2, imgSize, imgSize);
           };
           img.src = e.target.result;
@@ -316,47 +344,49 @@
       }
 
       if (text && position !== "none") {
-        ctx.fillStyle = "black";
-        ctx.font = "bold 12px Arial";
+        ctx.fillStyle = foregroundColor;
+        ctx.font = `bold ${fontSize}px Arial`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-
         switch (position) {
-          case "top":
-            ctx.fillText(text, size / 2, 20);
-            break;
-          case "bottom":
-            ctx.fillText(text, size / 2, size - 20);
-            break;
-          case "left":
-            ctx.save();
-            ctx.translate(20, size / 2);
-            ctx.rotate(-Math.PI / 2);
-            ctx.fillText(text, 0, 0);
-            ctx.restore();
-            break;
-          case "right":
-            ctx.save();
-            ctx.translate(size - 20, size / 2);
-            ctx.rotate(Math.PI / 2);
-            ctx.fillText(text, 0, 0);
-            ctx.restore();
-            break;
+          case "top": ctx.fillText(text, size / 2, 20); break;
+          case "bottom": ctx.fillText(text, size / 2, size - 20); break;
+          case "left": ctx.save(); ctx.translate(20, size / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(text, 0, 0); ctx.restore(); break;
+          case "right": ctx.save(); ctx.translate(size - 20, size / 2); ctx.rotate(Math.PI / 2); ctx.fillText(text, 0, 0); ctx.restore(); break;
         }
       }
 
-      downloadBtn.style.display = "block";
+      document.getElementById("downloadBtn").style.display = "block";
     }
 
     function downloadQR() {
-      const canvas = document.getElementById("qrCanvas");
-      const link = document.createElement("a");
-      link.download = "qr-code.png";
-      link.href = canvas.toDataURL();
-      link.click();
+      const format = document.getElementById("formatSelect").value;
+      const input = document.getElementById("urlInput").value.trim();
+      if (format === "svg") {
+        QRCode.toString(input, { type: 'svg' }, function (err, string) {
+          const blob = new Blob([string], { type: "image/svg+xml" });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "qr-code.svg";
+          link.click();
+        });
+      } else {
+        const link = document.createElement("a");
+        link.download = "qr-code.png";
+        link.href = canvas.toDataURL();
+        link.click();
+      }
+    }
+
+    function resetForm() {
+      document.getElementById("urlInput").value = "";
+      document.getElementById("textInput").value = "";
+      document.getElementById("logoInput").value = "";
+      logoPreview.style.display = 'none';
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      document.getElementById("downloadBtn").style.display = "none";
     }
   </script>
-
 </body>
 
 </html>

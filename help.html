@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Generator Help</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --dark-bg: #343a40;
+            --light-bg: #f9f9f9;
+            --text-color: #333;
+            --header-height: auto;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #343a40;
+            color: white;
+        }
+
+        header h2,
+        header p {
+            margin: 0;
+            color: #fff;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .header-left,
+        .header-center,
+        .header-right {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .header-center {
+            text-align: center;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .header-right a {
+            color: #0a66c2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .header-right i {
+            margin-right: 4px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .header-left,
+            .header-center,
+            .header-right {
+                text-align: center;
+            }
+        }
+
+
+        main {
+            padding: 32px 20px;
+            max-width: 960px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            color: #222;
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        p,
+        ul {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 40px;
+            background-color: var(--dark-bg);
+            color: #fff;
+            text-align: center;
+            padding: 12px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-section header-left">
+            <h2>QR Code Generator</h2>
+        </div>
+        <div class="header-section header-center">
+            <p><strong>Web Development Services</strong></p>
+        </div>
+        <div class="header-section header-right">
+            <p>
+                📞 +91-08651193833 | ✉️ kumarrajiv0918@gmail.com<br>
+                <a href="https://www.linkedin.com/in/rajiv-kumar-60b3b7255" target="_blank">LinkedIn Profile</a>
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <h1>QR Code Generator – Help & Guide</h1>
+
+        <h2>📌 Overview</h2>
+        <p>
+            This tool helps you create fully customized QR codes for different purposes such as URLs, text, phone
+            numbers,
+            emails, Wi-Fi, vCards, and more. You can personalize colors, embed logos, add optional text, and download in
+            PNG
+            or SVG format.
+        </p>
+
+        <h2>🧾 Input Fields Explained</h2>
+        <ul>
+            <li><strong>QR Type</strong>: Choose the kind of content:
+                <ul>
+                    <li><strong>URL</strong>: Any web link (e.g., https://example.com)</li>
+                    <li><strong>Text</strong>: Any plain message or info</li>
+                    <li><strong>Email</strong>: Creates a "mailto:" link</li>
+                    <li><strong>Phone</strong>: Generates a "tel:" link</li>
+                    <li><strong>Wi-Fi</strong>: Lets users scan to connect to a network</li>
+                    <li><strong>vCard</strong>: Makes a digital business card</li>
+                </ul>
+            </li>
+            <li><strong>Optional Text</strong>: Add a short label (e.g., “Scan Me”)</li>
+            <li><strong>Text Position</strong>: Set to top, bottom, left or right</li>
+            <li><strong>Text Size</strong>: Adjust the label’s font size</li>
+            <li><strong>QR Code Color</strong>: Foreground color</li>
+            <li><strong>Background Color</strong>: Background fill color</li>
+            <li><strong>Upload Logo</strong>: Add a logo at center of QR code (optional)</li>
+        </ul>
+
+        <h2>⚙️ Buttons & Actions</h2>
+        <ul>
+            <li><strong>Generate QR</strong>: Create the QR based on your inputs</li>
+            <li><strong>Download PNG</strong>: Save QR as image</li>
+            <li><strong>Download SVG</strong>: Save as vector graphic</li>
+            <li><strong>Reset</strong>: Clear form and canvas</li>
+        </ul>
+
+        <h2>📥 Usage Tips</h2>
+        <ul>
+            <li>Always test scan before downloading</li>
+            <li>Use high contrast for better readability</li>
+            <li>Keep logo small and centered</li>
+            <li>Ensure input fields (like email/phone) are valid</li>
+        </ul>
+
+        <h2>🔗 Go Back to Generator</h2>
+        <p><a href="index.html">← Return to QR Code Generator</a></p>
+    </main>
+
+    <footer>
+        &copy; 2025 QR Code Generator | All Rights Reserved.
+    </footer>
+</body>
+
+</html>
