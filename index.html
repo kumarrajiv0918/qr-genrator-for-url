@@ -21,12 +21,20 @@
       min-height: 100vh;
     }
 
-    header,
-    footer {
+    header {
       background-color: #343a40;
       color: white;
       text-align: center;
       padding: 1rem;
+    }
+
+    header h2 {
+      margin: 0 0 5px;
+    }
+
+    header p {
+      margin: 2px 0;
+      font-size: 12px;
     }
 
     main {
@@ -35,6 +43,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: stretch;
       gap: 2rem;
     }
 
@@ -46,12 +55,15 @@
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
       flex: 1 1 320px;
       max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     h2 {
       font-size: 14px;
       margin-bottom: 1rem;
-      color: #333;
+      color: #faf6f6;
       text-align: center;
     }
 
@@ -107,13 +119,22 @@
     }
 
     footer {
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      padding: 1rem;
       font-size: 12px;
     }
 
-    @media (min-width: 768px) {
+    @media (max-width: 768px) {
       main {
-        flex-direction: row;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .form-section,
+      .output-section {
+        max-width: 100%;
       }
     }
 
@@ -135,35 +156,41 @@
 
   <header>
     <h2>QR Code Generator</h2>
+    <p><strong>Web Development Services</strong></p>
+    <p>📞 +91-08651193833 | ✉️ kumarrajiv0918@gmail.com</p>
   </header>
 
   <main>
     <div class="form-section">
-      <h2>Input Details</h2>
-      <label for="urlInput">URL</label>
-      <input type="text" id="urlInput" placeholder="Enter URL" />
+      <div>
+        <h2>Input Details</h2>
+        <label for="urlInput">URL</label>
+        <input type="text" id="urlInput" placeholder="Enter URL" />
 
-      <label for="textInput">Optional Text</label>
-      <input type="text" id="textInput" placeholder="Optional Text" />
+        <label for="textInput">Optional Text</label>
+        <input type="text" id="textInput" placeholder="Optional Text" />
 
-      <label for="positionSelect">Text Position</label>
-      <select id="positionSelect">
-        <option value="none">-- Text Position --</option>
-        <option value="top">Top</option>
-        <option value="bottom">Bottom</option>
-        <option value="left">Left</option>
-        <option value="right">Right</option>
-      </select>
+        <label for="positionSelect">Text Position</label>
+        <select id="positionSelect">
+          <option value="none">-- Text Position --</option>
+          <option value="top">Top</option>
+          <option value="bottom">Bottom</option>
+          <option value="left">Left</option>
+          <option value="right">Right</option>
+        </select>
 
-      <label for="logoInput">Upload Logo (optional)</label>
-      <input type="file" id="logoInput" accept="image/*" />
+        <label for="logoInput">Upload Logo (optional)</label>
+        <input type="file" id="logoInput" accept="image/*" />
+      </div>
 
       <button class="generate-btn" onclick="generateQR()">Generate QR</button>
     </div>
 
     <div class="output-section">
-      <h2>QR Code Output</h2>
-      <canvas id="qrCanvas" width="400" height="400"></canvas>
+      <div>
+        <h2>QR Code Output</h2>
+        <canvas id="qrCanvas" width="400" height="400"></canvas>
+      </div>
       <button id="downloadBtn" class="download-btn" onclick="downloadQR()">Download PNG</button>
     </div>
   </main>
